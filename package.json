@@ -4,7 +4,7 @@
   "description": "learning node",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --env-file=.env index.js"
+    "start": "nodemon --env-file=.env index2.js"
   },
   "repository": {
     "type": "git",
