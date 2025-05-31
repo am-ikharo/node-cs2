@@ -1,32 +1,33 @@
 import http from 'http';
-import fs from 'fs|promises';
+import fs from 'fs/promises';
 import url from 'url';
+import path from 'path';
 const PORT = process.env.PORT;
 
-const Server = http.createServer((req,res) => {
-    try {
-        if(req.method === 'GET'){
-            if(req.url === '/'){
-                res.setHeader('Content-Type', 'text/html');
-                res.end('<h1>Home Page</h1>');
-            }else if(req.url === '/about'){
-                res.setHeader('Content-Type', 'text/html');
-                res.end('<h1>About Page</h1>');
-            }else{
-                res.setHeader('Content-Type', 'text/plain');
-                res.statusCode = 404;
-                res.end('Page not Found');
-            }
+
+const __fileName = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__fileName);
+
+const Server = http.createServer(async (req,res) => {
+    if(req.method === 'GET'){
+        let filepath;
+        if(req.url === '/'){
+            filepath = path.join(__dirname, 'public', 'index.html');
+        }else if(req.url === '/about'){
+            filepath = path.join(__dirname, 'public', 'about.html');
         }else{
-            throw new Error('Method not found');
+            throw new Error('Not Found');
         }
-        
-    } catch (error) {
-        res.setHeader('Content-Type', 'text/plain');
-        res.statusCode = 500;
-        res.end('Server Error');
+
+        const data = await fs.readFile(filepath)
+        res.setHeader('Content-Type', 'text/html');
+        res.write(data);
+        res.end();
+    }else{
+        throw new Error('Method not found');
     }
     
+
     
 })
 
