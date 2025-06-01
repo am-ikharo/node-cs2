@@ -9,9 +9,15 @@ const users = [
     {'id': 3, 'name': 'Jim Doe'}
 ]
 
+const logger = (req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+}
+
 // create a server 
 
 const Server = createServer((req, res) => {
+    logger(re)
     
     if(req.url === '/api/users' && req.method === 'GET') {
         res.setHeader('Content-Type', 'application/json');
