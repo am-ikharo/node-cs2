@@ -1,6 +1,6 @@
 import {createServer} from 'http';
 import { url } from 'inspector';
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8080
 //create a hardcoded database called users
 
 const users = [
