@@ -45,17 +45,15 @@ const Server = createServer((req, res) => {
             if(req.url === '/api/users' && req.method === 'GET') {
                 getUserHandler(req. res);
             }else if(req.url.match(/\/api\/user\/([0-9]+)/) && req.method === 'GET'){
-                getUserByIdHandler(req, res)
+                getUserByIdHandler(req, res);
+            }else{
+                res.statusCode = 404;
+                res.write(JSON.stringify({message: 'Route not found'}));
+                res.end();
             }
-        })
-    })
-   else{
-        res.setHeader('Content-Type', 'application/json');
-        res.statusCode = 404;
-        res.write(JSON.stringify({message: 'Route not found'}));
-        res.end();
-    }
-})
+        });
+    });
+});
 
 Server.listen(PORT, ()=> {
     console.log(`the Server is running on port ${PORT}` )
