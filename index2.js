@@ -47,10 +47,10 @@ const jsonMiddleware = (req, res, next) => {
 // create a server 
 
 const Server = createServer((req, res) => {
-    logger((req, res) => {
-        jsonMiddleware ((req, res) => {
+    logger(req, res, () => {
+        jsonMiddleware (req, res, () => {
             if(req.url === '/api/users' && req.method === 'GET') {
-                getUserHandler(req. res);
+                getUserHandler(req, res);
             }else if(req.url.match(/\/api\/user\/([0-9]+)/) && req.method === 'GET'){
                 getUserByIdHandler(req, res);
             }else{
