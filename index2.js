@@ -15,6 +15,13 @@ const getUserHandler = (req, res) => {
     res.end();
 }
 
+// create a route not found handler
+const routeNotFoundhandler = (req, res) => {
+    res.statusCode = 404;
+    res.write(JSON.stringify({message: 'Route not found'}));
+    res.end();
+}
+
 //handler for GET a user
 const  getUserByIdHandler = (req, res) => {
     const id = req.url.split('/')[3];
@@ -47,9 +54,7 @@ const Server = createServer((req, res) => {
             }else if(req.url.match(/\/api\/user\/([0-9]+)/) && req.method === 'GET'){
                 getUserByIdHandler(req, res);
             }else{
-                res.statusCode = 404;
-                res.write(JSON.stringify({message: 'Route not found'}));
-                res.end();
+                routeNotFoundhandler(req, res);
             }
         });
     });
