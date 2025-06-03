@@ -17,7 +17,19 @@ const getUserHandler = (req, res) => {
 
 // handler for POST /api/user/
 
-
+const createUserHandler = (req, res) => {
+    let body = '';
+    req.on('data', (chuck) => {
+        body += chuck.toString();
+    })
+    req.on('end', () =>{
+        const newUser = JSON.parse(body);
+        users.push(newUser);
+        res.statusCode = 201;
+        res.write(JSON.stringify(newUser));
+        res.end();
+    })
+}
 
 // create a route not found handler
 const routeNotFoundhandler = (req, res) => {
