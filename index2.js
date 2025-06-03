@@ -21,14 +21,14 @@ const createUserHandler = (req, res) => {
     let body = '';
     req.on('data', (chuck) => {
         body += chuck.tostring();
-        req.on('end', () => {
+    })
+    req.on('end', () => {
             const newUser = JSON.parse(body);
             users.push(newUser);
             res.statusCode = 201;
             res.write(JSON.stringify(newUser));
             res.end();
         })
-    })
 }
 
 // create a route not found handler
