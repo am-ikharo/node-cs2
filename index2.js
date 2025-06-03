@@ -20,7 +20,7 @@ const getUserHandler = (req, res) => {
 const createUserHandler = (req, res) => {
     let body = '';
     req.on('data', (chuck) => {
-        body += chuck.tostring();
+        body += chuck.toString();
     })
     req.on('end', () => {
             const newUser = JSON.parse(body);
