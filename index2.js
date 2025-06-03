@@ -25,12 +25,12 @@ const routeNotFoundhandler = (req, res) => {
 //handler for GET a user
 const  getUserByIdHandler = (req, res) => {
     const id = req.url.split('/')[3];
-    const user = users.find((user) => user.id === parseInt(id));
-    if (user){
+    const user = users.filter((user) => user.id === parseInt(id))
+    if(user){
         res.write(JSON.stringify(user));
     }else{
+        res.write(JSON.stringify({message: "user not found"}));
         res.statusCode = 404;
-        res.write(JSON.stringify({message: 'user not found'}));
     }
     res.end();
 }
